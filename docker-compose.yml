@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+
+  # API Server (FastAPI)
+  mavericks:
+    build:
+      context: data/mavericks
+      dockerfile: .
+    container_name: mavericks
+    ports:
+      - "8000:8000"
+    volumes:
+      - data/mavericks:/mavericks
+    depends_on:
+      - db
+
+  # Database
+  db:
+    image: mysql:latest
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - 'data/mysql/env.mysql'
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - './data/mysql/data:/var/lib/mysql'
+      - './data/mysql/etc:/etc/mysql/conf.d'
+    restart: always
