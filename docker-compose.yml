@@ -5,12 +5,12 @@ services:
   mavericks:
     build:
       context: data/mavericks
-      dockerfile: .
+      dockerfile: Dockerfile
     container_name: mavericks
     ports:
       - "8000:8000"
     volumes:
-      - data/mavericks:/mavericks
+      - ./data/mavericks:/app
     depends_on:
       - db
 
