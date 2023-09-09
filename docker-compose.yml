@@ -13,6 +13,8 @@ services:
       - ./data/mavericks:/app
     depends_on:
       - db
+    networks:
+      - mavericks-network
 
   # Database
   db:
@@ -29,3 +31,9 @@ services:
       - './data/mysql/data:/var/lib/mysql'
       - './data/mysql/etc:/etc/mysql/conf.d'
     restart: always
+    networks:
+      - mavericks-network
+
+networks:
+  mavericks-network:
+    driver: bridge
