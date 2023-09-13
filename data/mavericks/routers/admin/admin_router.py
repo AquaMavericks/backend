@@ -3,7 +3,7 @@ from . import admin_crud,admin_schema
 from database import get_db
 from sqlalchemy.orm import Session
 
-router = APIRouter(prefix="/v1/admin", tags=["Port"])
+router = APIRouter(prefix="/v1/admin", tags=["Admin"])
 
 @router.get("/view/list")
 async def viewAllPort(db:Session=Depends(get_db)):

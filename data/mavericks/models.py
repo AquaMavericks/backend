@@ -58,9 +58,11 @@ class Robots(Base):
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     # 항만
-    robots_port = ForeignKey("ports.id",nullable=False)
+    robots_port = Column(Integer,nullable=False)
     # 위치 정보
     GPS_x = Column(String(50),nullable=False)
     GPS_y = Column(String(50),nullable=False)
     GPS_z = Column(String(50),nullable=False)
-    
+    # 구조상태
+    # 0 : 구조대기, 1 : 구조중, 2 : 구조완료
+    robots_status = Column(Integer,nullable=False, default=0)
