@@ -76,6 +76,7 @@ def changeRobotStatus(db:Session, robot_id:int, status:int) -> bool:
         return False
     else:
         return True
+
 # 로봇 GPS 변경
 def changeRobotLocation(db:Session,robot_id:int,GPS_info:robot_schema.GPSInfo)->bool:
     try:

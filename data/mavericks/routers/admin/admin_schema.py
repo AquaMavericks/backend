@@ -16,7 +16,7 @@ class AdminList(BaseModel):
 class AdminCreate(BaseModel):
     admin_name : str
     admin_port : int
-    @validator('admin_name','admin_port')
+    @validator('admin_name')
     def not_empty(cls, v):
         if not v or not v.strip():
             raise ValueError('빈 값은 허용되지 않습니다.')

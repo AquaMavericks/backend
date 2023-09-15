@@ -1,4 +1,4 @@
-from models import Admin
+from models import Admin,Port
 from . import admin_schema
 from database import SessionLocal
 from sqlalchemy.orm import Session
@@ -31,16 +31,19 @@ def create_admin(db:Session, admin:admin_schema.AdminCreate) -> bool:
     try:
         admin_list = get_admin_list(db=db)["admin_list"]
         
-        # 관리자 이름 중복 제거
-        for admin_ in admin_list:
-            if admin_.admin_name == admin.admin_name:
+        # 관리자 Token 생성
+        admin_port = db.query(Port).filter(Port.id == admin.admin_port).first()
+        admin_name = admin.admin_name
+        admin_token = admin_port.port_location + "_" + admin_name + "_token"
+        
+        for _admin in admin_list:
+            if _admin.admin_name == admin_name:
                 return False
             
         db_admin = Admin(
             admin_name = admin.admin_name,
-            admin_password = admin.admin_password,
-            admin_port_id = admin.admin_port_id,
-            admin_is_active = admin.admin_is_active
+            admin_token = admin_token,
+            admin_port = admin.admin_port,
         )
         db.add(db_admin)
         db.commit()
@@ -66,7 +69,8 @@ def update_admin(db:Session,
         return False
     else:
         return old_admin
-    
+
+# 관리자 삭제
 def delete_admin(db:Session,port_id:int) -> bool:
     try:
         db.query(Admin).filter(Admin.admin_port_id == port_id).delete()

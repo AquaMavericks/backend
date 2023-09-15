@@ -42,7 +42,7 @@ async def changeRobotStatus(robot_id:int,status:int,
         result = robot_crud.changeRobotStatus(db=db,robot_id=robot_id,status=status)
         return result
 # 로봇 GPS 변경
-@router.get("/location/{robot_id}")
+@router.post("/location/{robot_id}")
 async def changeRobotLocation(robot_id:int,
                             GPS_info:robot_schema.GPSInfo,
                             db:Session=Depends(get_db)):

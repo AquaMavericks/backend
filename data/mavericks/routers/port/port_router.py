@@ -41,3 +41,17 @@ async def deletePort(port_id:int,
                      db:Session=Depends(get_db)):
     result = port_crud.delete_port(db=db,port_id=port_id)
     return result
+
+# 항만 사고 발생 여부 변경
+@router.get("/accident/{port_id}/{status}")
+async def changeAccidentStatus(port_id:int,status:int,
+                            db:Session=Depends(get_db)):
+        result = port_crud.changeAccidentStatus(db=db,port_id=port_id,status=status)
+        return result
+    
+# 항만 구조 여부 변경
+@router.get("/rescue/{port_id}/{status}")
+async def changeRescueStatus(port_id:int,status:int,
+                            db:Session=Depends(get_db)):
+        result = port_crud.changeRescueStatus(db=db,port_id=port_id,status=status)
+        return result

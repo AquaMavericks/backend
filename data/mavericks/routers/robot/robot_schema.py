@@ -10,15 +10,6 @@ class Robot(BaseModel):
     robots_status: int
     class Config:
         orm_mode = True
-        schema_extra = {
-            "example": {
-                "robots_port": 1,
-                "GPS_x": "1",
-                "GPS_y": "1",
-                "GPS_z": "1",
-                "robots_status": 0,
-            },
-        }
 
 class RobotList(BaseModel):
     count : int
@@ -39,6 +30,6 @@ class RobotDelete(BaseModel):
     robot_id:int
     
 class GPSInfo(BaseModel):
-    GPS_X:str
-    GPS_Y:str
-    GPS_Z:str
+    GPS_x:str
+    GPS_y:str
+    GPS_z:str

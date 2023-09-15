@@ -78,3 +78,25 @@ def delete_port(db:Session,port_id:int) -> bool:
         db.commit()
         return True
     
+# 사고 발생 여부 변경
+def changeAccidentStatus(db:Session,port_id:int,status:int) -> bool:
+    try:
+        port = db.query(Port).get(port_id)
+        port.isAccident = status
+        db.commit()
+    except:
+        return False
+    else:
+        return True
+    
+# 구조 여부 변경
+def changeRescueStatus(db:Session,port_id:int,status:int) -> bool:
+    try:
+        port = db.query(Port).get(port_id)
+        port.isRescued = status
+        db.commit()
+    except:
+        return False
+    else:
+        return True
+    
