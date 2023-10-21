@@ -21,7 +21,7 @@ class Admin(Base):
     admin_token = Column(String(50),nullable=True)
     
     # 항만 정보 FK ex) 0: 부산항
-    admin_port = ForeignKey("ports.id",nullable=False)
+    admin_port = Column(String(50),nullable=False)
     
     # 추가 날짜
     date = Column(DateTime, nullable=False, default=utc_now.astimezone(korea_timezone))
@@ -58,7 +58,7 @@ class Robots(Base):
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     # 항만
-    robots_port = Column(Integer,nullable=False)
+    robots_port = Column(String(50),nullable=False)
     # 위치 정보
     GPS_x = Column(String(50),nullable=False)
     GPS_y = Column(String(50),nullable=False)

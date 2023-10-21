@@ -15,6 +15,7 @@ services:
       - db
     networks:
       - mavericks-network
+    restart: always
 
   # Database
   db:

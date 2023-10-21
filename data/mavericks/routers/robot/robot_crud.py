@@ -13,6 +13,15 @@ def getAllRobot(db: Session)-> robot_schema.RobotList:
     }
     return response_robot_list
 
+# 특정 지역 전체 로봇 조회
+def getAllLocationRobot(db:Session, robots_port:int)-> robot_schema.RobotList:
+    location_robot = db.query(Robots).filter(Robots.robots_port == robots_port).all()
+    response_robot_list = {
+        "count": len(location_robot),
+        "robots": location_robot
+    }
+    return response_robot_list
+
 # 특정 로봇 조회
 def getOneRobot(db: Session, robot_id: int)-> robot_schema.Robot:
     robot = db.query(Robots).get(robot_id)

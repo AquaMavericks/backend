@@ -19,6 +19,14 @@ async def viewAdminDetail(admin_id:int,
         return {"message":"해당 항만이 존재하지 않습니다."}
     else:
         return port_detail
+    
+@router.post("/login")
+async def login(admin_token: str,
+                db:Session=Depends(get_db)):
+    admin = admin_crud.login(db=db, admin_token=admin_token)
+    if admin == False:
+        return "로그인 실패"
+    return f"로그인 성공. 환영합니다. {admin.admin_port}"
 
 @router.post("/create")
 async def createAdmin(admin:admin_schema.AdminCreate,

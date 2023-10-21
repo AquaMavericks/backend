@@ -17,6 +17,11 @@ def get_port_list(db:Session) -> port_schema.PortList:
     
     return return_port_list
 
+def get_port_detail_by_port_name(db:Session, port_location : str):
+    port = db.query(Port).filter(Port.port_location == port_location).first()
+    print(port)
+    return port
+
 # 특정 항만 조회
 def get_port_detail(db:Session, port_id:int) -> Port | bool:
     try:

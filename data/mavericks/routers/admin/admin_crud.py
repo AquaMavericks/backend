@@ -79,3 +79,12 @@ def delete_admin(db:Session,port_id:int) -> bool:
         return False
     else:
         return True
+    
+# 로그인
+def login(db:Session,admin_token :str):
+    try:
+        admin_info = db.query(Admin).filter(Admin.admin_token == admin_token).first()
+    except:
+        return False
+    else:
+        return admin_info

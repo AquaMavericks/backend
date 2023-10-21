@@ -1,5 +1,6 @@
 from fastapi import APIRouter,Depends
 from . import robot_schema,robot_crud
+#from port import port_crud
 from database import get_db
 from sqlalchemy.orm import Session
 
@@ -48,3 +49,10 @@ async def changeRobotLocation(robot_id:int,
                             db:Session=Depends(get_db)):
         result = robot_crud.changeRobotLocation(db=db,robot_id=robot_id,GPS_info=GPS_info)
         return result
+    
+# admin의 지역의 로봇 리스트 반환
+@router.get("/view/list/{port_id}")
+async def viewRobotAdminLocation(port_id:int,
+                                db:Session=Depends(get_db)):
+   location_robots = robot_crud.getAllLocationRobot(db=db, robots_port = port_id)
+   return location_robots

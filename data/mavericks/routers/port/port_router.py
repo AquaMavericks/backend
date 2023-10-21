@@ -55,3 +55,10 @@ async def changeRescueStatus(port_id:int,status:int,
                             db:Session=Depends(get_db)):
         result = port_crud.changeRescueStatus(db=db,port_id=port_id,status=status)
         return result
+    
+# 지역이름으로 항만 조회
+@router.get("/view/detail/location/{port_location}")
+async def view_port_location(port_location:str,
+                             db:Session=Depends(get_db)):
+    port = port_crud.get_port_detail_by_port_name(db=db,port_location=port_location)
+    return port
