@@ -2,7 +2,7 @@ from fastapi import APIRouter,Depends
 from . import admin_crud,admin_schema
 from database import get_db
 from sqlalchemy.orm import Session
-
+from models import Admin
 router = APIRouter(prefix="/v1/admin", tags=["Admin"])
 
 @router.get("/view/list")
@@ -45,3 +45,11 @@ async def deleteAdmin(admin_id:int,
                         db:Session=Depends(get_db)):
         result = admin_crud.delete_admin(db=db,admin_id=admin_id)
         return result
+@router.get("/update/admin/{admin_id}/{token}")
+async def updateAdmin(admin_id:int,
+                      token:str,
+                      db:Session=Depends(get_db)):
+    admin_info = db.query(Admin).get(admin_id)
+    admin_info.admin_token = token
+    db.add(admin_info)
+    db.commit()

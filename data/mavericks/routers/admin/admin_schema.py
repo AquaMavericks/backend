@@ -25,12 +25,6 @@ class AdminCreate(BaseModel):
 class AdminUpdate(AdminCreate):
     admin_id : int
     
-    @validator('admin_id')
-    def not_empty(cls, v):
-        if not v or not v.strip():
-            raise ValueError('빈 값은 허용되지 않습니다.')
-        return v
-    
 class AdminDelete(BaseModel):
     admin_id : int
     
